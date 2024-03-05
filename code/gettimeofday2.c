@@ -7,10 +7,18 @@
 
 int main (int argc, char **argv)
 {
-    struct timeval tv[NB_MESURES];
+    struct timeval tv[NB_MESURES]; // Déclaration du tableau pour stocker les valeurs de temps
     int i;
 
-    /* ... */
+    // Première boucle pour capturer le temps
+    for (i = 0; i < NB_MESURES; ++i) {
+        gettimeofday(&tv[i], NULL); // Stockage des temps dans le tableau
+    }
+
+    // Deuxième boucle pour imprimer les valeurs de temps stockées
+    for (i = 0; i < NB_MESURES; ++i) {
+        printf("%2d : %ld.%06ld\n", i, tv[i].tv_sec, tv[i].tv_usec);
+    }
 
     return EXIT_SUCCESS;
 }
