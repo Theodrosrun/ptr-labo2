@@ -1,3 +1,5 @@
+# 1. Développement
+
 ### Exécutez le programme gettimeofday.c sur la DE1
 
 ```c
@@ -124,3 +126,15 @@ Résultats obtenus :
 28 : 1354.024363
 29 : 1354.024369
 ```
+
+
+
+### Comparez les résultats avec les précédents et expliquez pourquoi il y a des différences. Quelle est la granularité, ou précision, de la fonction gettimeofday()
+
+Les résultats obtenus des deux versions du programme sur la DE1 mettent en évidence l'impact significatif des opérations d'entrée/sortie, telles que `printf`, sur la mesure du temps. La première version montre une discontinuité notable des valeurs en micro secondes due à une latence accrue liée à l'exécution de `printf` dans la boucle, ce qui suggère que l'opération d'affichage peut introduire des délais variables et affecter la précision des mesures de temps. En contraste, la deuxième version, qui stocke d'abord toutes les valeurs avant de les imprimer, présente des intervalles de temps plus réguliers et précis, soulignant ainsi que l'isolement des mesures de temps des opérations d'entrée/sortie peut offrir des résultats plus fiables et cohérents. Cette différence indique l'importance de minimiser les opérations coûteuses dans les boucles de mesure de temps pour obtenir une précision accrue, notamment en matière de granularité après la virgule, directement affectée par ces opérations.
+
+<br>
+
+----
+
+# 2. Horloges Posix
