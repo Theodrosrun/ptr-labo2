@@ -138,3 +138,17 @@ Les résultats obtenus des deux versions du programme sur la DE1 mettent en évi
 ----
 
 # 2. Horloges Posix
+
+### Reprenez le programme gettimeofday.c du premier point, et modifiez-le pour utiliser les horloges POSIX
+
+```c
+
+```
+
+Résultats obtenus :
+
+```batch
+
+```
+
+### Comparez-les en termes de résolution d’horloge. Commentez votre code et vos résultats.
