@@ -1,0 +1,7 @@
+# Ignorer les fichiers objets
+code/**/*.o
+
+# Ignorer les fichiers exécutables (ajuster selon besoin)
+code/*  # Ignorer tous les fichiers sans extension dans code
+code/nom_executable  # Remplacer nom_executable par le nom réel de l'exécutable si besoin
+
