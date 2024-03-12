@@ -150,6 +150,18 @@ Les résultats obtenus des deux versions du programme sur la DE1 mettent en évi
 
 ### Reprenez le programme gettimeofday.c du premier point, et modifiez-le pour utiliser les horloges POSIX
 
+### CLOCK_REALTIME - CORRECTION
+`CLOCK_REALTIME` mesure le temps depuis l'heure actuelle du système. Sensible aux ajustements d'heure, comme le changement d'heure ou les corrections de seconde intercalaire, ce qui peut affecter le calcul des durées ou la planification précise des événements.
+
+### CLOCK_MONOTONIC
+`CLOCK_MONOTONIC` compte le temps de manière continue et ininterrompue depuis un point de départ arbitraire, indépendamment des modifications de l'heure du système. Idéale pour mesurer des intervalles de temps précis sans risque de perturbation par des ajustements de l'heure.
+
+### CLOCK_PROCESS_CPUTIME_ID
+`CLOCK_PROCESS_CPUTIME_ID` mesure le temps CPU total consommé par l'ensemble des threads d'un processus. Cela inclut à la fois le temps passé en mode utilisateur et en mode noyau, utile pour profiler le comportement en termes de consommation de ressources d'un processus.
+
+### CLOCK_THREAD_CPUTIME_ID
+`CLOCK_THREAD_CPUTIME_ID` offre une mesure du temps CPU utilisé par un thread spécifique, couvrant tant le mode utilisateur que le mode noyau. Cela permet une analyse fine de l'utilisation des ressources CPU par des threads individuels au sein d'applications multithreadées.
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>
