@@ -1,3 +1,12 @@
+# Objectif
+
+Permettre d’expérimenter l’interface des timers POSIX et les limites de Linux
+en tant que système temps réel.
+
+<br>
+
+----
+
 # 1. Développement
 
 ### Exécutez le programme gettimeofday.c sur la DE1
