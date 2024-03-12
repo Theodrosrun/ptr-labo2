@@ -157,23 +157,31 @@ Les résultats obtenus des deux versions du programme sur la DE1 mettent en évi
 
 #define NB_MESURES 30
 
-int main (int argc, char **argv)
-{
+int main (int argc, char **argv) {
     struct timespec tp;
-    int i;
+    int i, j;
 
-    // Exemple avec CLOCK_MONOTONIC
-    printf("Mesures avec CLOCK_MONOTONIC\n");
-    for (i = 0; i < NB_MESURES; ++i) {
-        clock_gettime(CLOCK_MONOTONIC, &tp);
-        printf("%2d : %ld.%09ld\n", i, tp.tv_sec, tp.tv_nsec);
-    }
+    clockid_t clocks[] = {CLOCK_REALTIME, CLOCK_MONOTONIC, CLOCK_PROCESS_CPUTIME_ID, CLOCK_THREAD_CPUTIME_ID};
+    const char* clock_names[] = {"CLOCK_REALTIME", "CLOCK_MONOTONIC", "CLOCK_PROCESS_CPUTIME_ID", "CLOCK_THREAD_CPUTIME_ID"};
+    int num_clocks = sizeof(clocks) / sizeof(clocks[0]);
 
-    // Afficher la résolution de l'horloge
-    if (clock_getres(CLOCK_MONOTONIC, &tp) == 0) {
-        printf("Résolution de CLOCK_MONOTONIC : %ld.%09ld secondes\n", tp.tv_sec, tp.tv_nsec);
-    } else {
-        perror("clock_getres");
+    for (j = 0; j < num_clocks; ++j) {
+        printf("Mesures avec %s\n", clock_names[j]);
+        for (i = 0; i < NB_MESURES; ++i) {
+            if (clock_gettime(clocks[j], &tp) == 0) {
+                printf("%2d : %ld.%09ld\n", i, tp.tv_sec, tp.tv_nsec);
+            } else {
+                perror("clock_gettime");
+                break;
+            }
+        }
+
+        if (clock_getres(clocks[j], &tp) == 0) {
+            printf("Résolution de %s : %ld.%09ld secondes\n", clock_names[j], tp.tv_sec, tp.tv_nsec);
+        } else {
+            perror("clock_getres");
+        }
+        printf("\n");
     }
 
     return EXIT_SUCCESS;
@@ -182,8 +190,40 @@ int main (int argc, char **argv)
 
 Résultats obtenus :
 
-```batch
+| Mesure | CLOCK_REALTIME         | CLOCK_MONOTONIC        | CLOCK_PROCESS_CPUTIME_ID | CLOCK_THREAD_CPUTIME_ID |
+|--------|------------------------|------------------------|-------------------------|-------------------------|
+| 0      | 1565.507550070         | 1565.526111070         | 0.045814120              | 0.052286480             |
+| 1      | 1565.509335260         | 1565.526438700         | 0.045988830              | 0.052443170             |
+| 2      | 1565.511523990         | 1565.526755110         | 0.046157600              | 0.052593210             |
+| 3      | 1565.511706410         | 1565.527075600         | 0.046473860              | 0.052743130             |
+| 4      | 1565.511981250         | 1565.527388370         | 0.046664490              | 0.052891760             |
+| 5      | 1565.512136490         | 1565.528653520         | 0.046835350              | 0.053064340             |
+| 6      | 1565.512421850         | 1565.528987560         | 0.047003560              | 0.053238790             |
+| 7      | 1565.512747630         | 1565.529299670         | 0.047188720              | 0.053391010             |
+| 8      | 1565.513107060         | 1565.529615380         | 0.047404590              | 0.053540590             |
+| 9      | 1565.513428060         | 1565.529931280         | 0.047571150              | 0.054818780             |
+| 10     | 1565.513740060         | 1565.531265110         | 0.047734600              | 0.054978480             |
+| 11     | 1565.514204190         | 1565.531592400         | 0.047898880              | 0.055128360             |
+| 12     | 1565.515381130         | 1565.531903810         | 0.048084650              | 0.055276560             |
+| 13     | 1565.515704330         | 1565.532220770         | 0.048247190              | 0.055426110             |
+| 14     | 1565.516031850         | 1565.532531480         | 0.048409110              | 0.055573930             |
+| 15     | 1565.516352500         | 1565.532841050         | 0.048571210              | 0.055722750             |
+| 16     | 1565.516816040         | 1565.533154850         | 0.048733950              | 0.057268510             |
+| 17     | 1565.517916730         | 1565.533465670         | 0.048896450              | 0.057432440             |
+| 18     | 1565.518237450         | 1565.533772740         | 0.049058420              | 0.057584640             |
+| 19     | 1565.518560020         | 1565.534083460         | 0.049219800              | 0.057735150             |
+| 20     | 1565.518873270         | 1565.534400330         | 0.049380430              | 0.058031260             |
+| 21     | 1565.519330070         | 1565.534709350         | 0.049544380              | 0.058205900             |
+| 22     | 1565.520742580         | 1565.535017180         | 0.049705760              | 0.058355020             |
+| 23     | 1565.521071200         | 1565.535331050         | 0.049872620              | 0.058519520             |
+| 24     | 1565.521383400         | 1565.535640010         | 0.050054870              | 0.058669670             |
+| 25     | 1565.521713700         | 1565.535949360         | 0.050218850              | 0.058819110             |
+| 26     | 1565.522028340         | 1565.536264850         | 0.050382440              | 0.058967230             |
+| 27     | 1565.522498730         | 1565.536578470         | 0.050544000              | 0.059114310             |
+| 28     | 1565.523686360         | 1565.536891900         | 0.050706280              | 0.059399230             |
+| 29     | 1565.524002340         | 1565.537206190         | 0.051025500              | 0.060153970             |
+| Résolution | 0.000000001 secondes | 0.000000001 secondes | 0.000000001 secondes     | 0.000000001 secondes    |
 
-```
+Ce tableau montre les temps mesurés pour 30 mesures consécutives de chaque type d'horloge (`CLOCK_REALTIME`, `CLOCK_MONOTONIC`, `CLOCK_PROCESS_CPUTIME_ID`, et `CLOCK_THREAD_CPUTIME_ID`), ainsi que la résolution de chaque horloge. Les versions HR n'ont pas été étudiées.
 
 ### Comparez-les en termes de résolution d’horloge. Commentez votre code et vos résultats.
