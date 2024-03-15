@@ -287,3 +287,11 @@ int main() {
 ```
 
 ### Etudiez le code, Pouvez-vous expliquer comment il fonctionne ? (pour quitter utilisez CTRL+C, ou envoyez un signal au processus avec la commande kill)
+
+Ce programme en C utilise un timer virtuel et les signaux pour exécuter périodiquement une fonction (`timer_handler`) qui compte le nombre de fois que le timer expire. 
+
+En initialisant la structure `sigaction` à zéro et en définissant `sa.sa_handler` pour pointer vers `timer_handler`, il configure cette dernière pour gérer les signaux `SIGVTALRM` générés par l'expiration du timer. 
+
+Le timer est configuré avec `setitimer` pour expirer toutes les 250 millisecondes, à la fois initialement et pour les expirations suivantes, en utilisant `ITIMER_VIRTUAL` qui ne décompte que lorsque le processus s'exécute en mode utilisateur. Lorsque le timer expire, le signal `SIGVTALRM` est émis et `timer_handler` est appelé, incrémentant et affichant le compteur.
+
+`SIGVTALRM` est un signal Unix/Linux émis lorsqu'un timer virtuel spécifique à un processus, configuré avec `setitimer()` pour utiliser `ITIMER_VIRTUAL`, arrive à expiration. Ce timer mesure uniquement le temps CPU consommé en mode utilisateur par le processus, permettant ainsi de programmer des actions à exécuter à intervalles réguliers de temps d'exécution. L'utilisation de `SIGVTALRM` est particulièrement utile pour le profilage de performance ou pour gérer la consommation de ressources du processus de manière précise, puisque ce signal est envoyé automatiquement par le système d'exploitation uniquement quand le compteur du timer atteint zéro, indiquant ainsi que le temps alloué au processus est écoulé.
