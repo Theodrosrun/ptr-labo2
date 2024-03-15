@@ -157,18 +157,6 @@ Cette différence indique l'importance de minimiser les opérations coûteuses d
 
 ### Reprenez le programme gettimeofday.c du premier point, et modifiez-le pour utiliser les horloges POSIX
 
-### CLOCK_REALTIME - CORRECTION
-`CLOCK_REALTIME` mesure le temps depuis l'heure actuelle du système. Sensible aux ajustements d'heure, comme le changement d'heure ou les corrections de seconde intercalaire, ce qui peut affecter le calcul des durées ou la planification précise des événements.
-
-### CLOCK_MONOTONIC
-`CLOCK_MONOTONIC` compte le temps de manière continue et ininterrompue depuis un point de départ arbitraire, indépendamment des modifications de l'heure du système. Idéale pour mesurer des intervalles de temps précis sans risque de perturbation par des ajustements de l'heure.
-
-### CLOCK_PROCESS_CPUTIME_ID
-`CLOCK_PROCESS_CPUTIME_ID` mesure le temps CPU total consommé par l'ensemble des threads d'un processus. Cela inclut à la fois le temps passé en mode utilisateur et en mode noyau, utile pour profiler le comportement en termes de consommation de ressources d'un processus.
-
-### CLOCK_THREAD_CPUTIME_ID
-`CLOCK_THREAD_CPUTIME_ID` offre une mesure du temps CPU utilisé par un thread spécifique, couvrant tant le mode utilisateur que le mode noyau. Cela permet une analyse fine de l'utilisation des ressources CPU par des threads individuels au sein d'applications multithreadées.
-
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -241,12 +229,22 @@ Résultats obtenus :
 | 27     | 1565.522498730         | 1565.536578470         | 0.050544000              | 0.059114310             |
 | 28     | 1565.523686360         | 1565.536891900         | 0.050706280              | 0.059399230             |
 | 29     | 1565.524002340         | 1565.537206190         | 0.051025500              | 0.060153970             |
-| Résolution | 0.000000001 secondes | 0.000000001 secondes | 0.000000001 secondes     | 0.000000001 secondes    |
-
-Ce tableau montre les temps mesurés pour 30 mesures consécutives de chaque type d'horloge (`CLOCK_REALTIME`, `CLOCK_MONOTONIC`, `CLOCK_PROCESS_CPUTIME_ID`, et `CLOCK_THREAD_CPUTIME_ID`), ainsi que la résolution de chaque horloge. Les versions HR n'ont pas été étudiées.
 
 ### Comparez-les en termes de résolution d’horloge. Commentez votre code et vos résultats.
 
+### CLOCK_REALTIME 
+Représente l'heure actuelle en se basant sur l'heure mondiale, c'est-à-dire l'heure réelle. Elle est sujette à des modifications, comme les ajustements manuels de l'heure ou les secondes intercalaires, ce qui peut effectivement impacter les calculs de durée ou la planification d'événements nécessitant une précision temporelle stricte.
+
+### CLOCK_MONOTONIC
+Mesure le temps écoulé depuis un point arbitraire dans le passé, qui ne change pas après son initialisation. Cette horloge n'est pas affectée par les modifications de l'heure système, ce qui la rend idéale pour mesurer des durées précises sans se soucier des ajustements d'heure.
+
+### CLOCK_PROCESS_CPUTIME_ID 
+Mesure le temps CPU consommé par tous les threads d'un processus. Ce temps inclut le temps passé en mode utilisateur et en mode noyau, ce qui est utile pour analyser la consommation de ressources d'un processus.
+
+### CLOCK_THREAD_CPUTIME_ID 
+Mesure le temps CPU utilisé par un thread spécifique du processus, en incluant le temps en mode utilisateur et en mode noyau. Cela permet d'évaluer précisément l'utilisation des ressources par des threads individuels.
+
+On notera que la précision est de l'ordre de de la nano seconde pour toutes les clocks.
 
 <br>
 
