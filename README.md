@@ -295,3 +295,111 @@ En initialisant la structure `sigaction` à zéro et en définissant `sa.sa_hand
 Le timer est configuré avec `setitimer` pour expirer toutes les 250 millisecondes, à la fois initialement et pour les expirations suivantes, en utilisant `ITIMER_VIRTUAL` qui ne décompte que lorsque le processus s'exécute en mode utilisateur. Lorsque le timer expire, le signal `SIGVTALRM` est émis et `timer_handler` est appelé, incrémentant et affichant le compteur.
 
 `SIGVTALRM` est un signal Unix/Linux émis lorsqu'un timer virtuel spécifique à un processus, configuré avec `setitimer()` pour utiliser `ITIMER_VIRTUAL`, arrive à expiration. Ce timer mesure uniquement le temps CPU consommé en mode utilisateur par le processus, permettant ainsi de programmer des actions à exécuter à intervalles réguliers de temps d'exécution. L'utilisation de `SIGVTALRM` est particulièrement utile pour le profilage de performance ou pour gérer la consommation de ressources du processus de manière précise, puisque ce signal est envoyé automatiquement par le système d'exploitation uniquement quand le compteur du timer atteint zéro, indiquant ainsi que le temps alloué au processus est écoulé.
+
+<br>
+
+----
+
+# 4. Modification
+
+### Ecrivez un programme signal_timer2.c qui prend en entrée le nombre de mesures à faire et un temps en microsecondes. Programmez un timer périodique CLOCK_REALTIME qui affiche sur la sortie standard le temps écoulé entre deux différentes occurences.
+
+```c
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
+#include <sys/time.h>
+#include <inttypes.h>
+
+int nbMeasures;
+struct timespec lastTime;
+
+void handler_signal(int signum) {
+    struct timespec currentTime;
+    if (clock_gettime(CLOCK_REALTIME, &currentTime) != 0) {
+        perror("clock_gettime failed");
+        exit(EXIT_FAILURE);
+    }
+
+    if (lastTime.tv_sec != 0 || lastTime.tv_nsec != 0) { // Skip the first signal
+        long elapsed_nsec = (currentTime.tv_sec - lastTime.tv_sec) * 1000000000L + (currentTime.tv_nsec - lastTime.tv_nsec);
+        printf("Elapsed time: %ld ns\n", elapsed_nsec);
+    }
+    lastTime = currentTime;
+
+    if (--nbMeasures <= 0) {
+        exit(EXIT_SUCCESS);
+    }
+}
+
+int main(int argc, char *argv[]) {
+    long usec, nsec;
+    timer_t timer;
+    struct sigevent event;
+    struct itimerspec spec;
+
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s <number of measures> <time in us>\n", argv[0]);
+        return EXIT_FAILURE;
+    }
+
+    nbMeasures = atoi(argv[1]);
+    usec = atol(argv[2]);
+    if (nbMeasures <= 0 || usec <= 0) {
+        fprintf(stderr, "Both the number of measures and the time (in us) must be > 0\n");
+        return EXIT_FAILURE;
+    }
+
+    nsec = usec * 1000; // Convert microseconds to nanoseconds
+
+    // Configure the signal handler
+    signal(SIGRTMIN, handler_signal);
+    event.sigev_notify = SIGEV_SIGNAL;
+    event.sigev_signo = SIGRTMIN;
+    spec.it_interval.tv_sec = nsec / 1000000000;
+    spec.it_interval.tv_nsec = nsec % 1000000000;
+    spec.it_value = spec.it_interval; // Set the timer to expire after 'nsec' nanoseconds
+
+    // Create and start the timer
+    if (timer_create(CLOCK_REALTIME, &event, &timer) != 0) {
+        perror("timer_create failed");
+        return EXIT_FAILURE;
+    }
+
+    if (timer_settime(timer, 0, &spec, NULL) != 0) {
+        perror("timer_settime failed");
+        return EXIT_FAILURE;
+    }
+
+    // Initialize lastTime to zero
+    lastTime.tv_sec = 0;
+    lastTime.tv_nsec = 0;
+
+    // Keep the program alive until all measures are done
+    while (1) {
+        pause(); // Wait for signals
+    }
+
+    return EXIT_SUCCESS;
+}
+```
+
+---
+
+Les différences principales entre les deux programmes sont centrées autour de trois axes majeurs : le type de timer utilisé, la gestion des signaux, et l'interface utilisateur pour la configuration du timer.
+
+1. **Type de Timer :**
+   - **Programme 1** utilise `ITIMER_VIRTUAL`, qui ne compte que le temps CPU consommé par le processus en mode utilisateur. Cela est spécifiquement utile pour mesurer la performance du processus en termes de temps CPU.
+   - **Programme 2** utilise `CLOCK_REALTIME` à travers l'API POSIX `timer_create()`, ce qui permet de mesurer le temps en temps réel, indépendamment de l'utilisation du CPU par le processus. Ce timer est plus versatile pour des applications nécessitant la mesure du temps réel, comme des temporisateurs ou des horloges.
+
+2. **Gestion des Signaux :**
+   - **Programme 1** utilise `sigaction()` pour configurer le gestionnaire de signal `SIGVTALRM`, permettant une certaine flexibilité dans la gestion des signaux, comme la prévention de l'interruption de certaines fonctions systèmes lors de la réception du signal.
+   - **Programme 2** emploie `signal()` avec `SIGRTMIN`, un signal en temps réel, offrant des capacités avancées telles que la queue de signaux et la priorisation, ce qui peut être essentiel pour les applications nécessitant une gestion précise des événements en temps réel.
+
+3. **Interface utilisateur et Flexibilité :**
+   - **Programme 1** a un comportement fixe, défini par le code, avec un intervalle de timer codé en dur, ce qui le rend moins flexible pour des utilisations variées sans modification du code.
+   - **Programme 2** propose une interface utilisateur via la ligne de commande, acceptant le nombre de mesures et le temps entre elles comme arguments. Cela rend le programme largement configurable sans nécessiter de modifications du code, adapté à divers scénarios d'utilisation.
+
+En résumé, le Programme 2 est conçu pour être plus flexible et configurable, adapté à des mesures de temps en temps réel avec une gestion avancée des signaux. Le Programme 1 est plus simple, destiné à mesurer le temps CPU utilisé par le processus, avec une configuration et une gestion des signaux moins avancées.
