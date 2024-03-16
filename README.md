@@ -438,3 +438,38 @@ Et utilisez-le de la manière suivante :
 <br>
 
 ### Commentez les résultats et répétez l’expérience avec un intervalle de 250us, 1ms et 10ms. A partir des résultats précédents, créez les histogrammes des fréquences des données récupérées. Vous êtes libre d’utiliser votre environment préféré (python, excel, octave, etc...).
+
+
+<br>
+
+----
+
+# 7 Perturbations - Répétez l’expérience avec un timer de 1ms en perturbant le système des manières suivantes :
+
+### En le lançant avec différentes valeurs de nice
+
+Décrivez et commentez les résultats obtenus :
+
+
+
+<br>
+
+### En le lançant avec ./cpu_loop & ./timer 1000 1000
+
+Décrivez et commentez les résultats obtenus :
+
+
+
+<br>
+
+### En le lançant et en effectuant d’autres opérations avec le système en parallèle
+
+Décrivez et commentez les résultats obtenus :
+
+
+
+<br>
+
+### En le lançant en même temps que vous recevez un ping depuis une autre machine (demandez de l’aide à un autre groupe)
+
+Décrivez et commentez les résultats obtenus :
