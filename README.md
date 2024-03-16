@@ -232,16 +232,16 @@ Résultats obtenus :
 
 ### Comparez-les en termes de résolution d’horloge. Commentez votre code et vos résultats.
 
-### CLOCK_REALTIME 
+#### CLOCK_REALTIME 
 Représente l'heure actuelle en se basant sur l'heure mondiale, c'est-à-dire l'heure réelle. Elle est sujette à des modifications, comme les ajustements manuels de l'heure ou les secondes intercalaires, ce qui peut effectivement impacter les calculs de durée ou la planification d'événements nécessitant une précision temporelle stricte.
 
-### CLOCK_MONOTONIC
+#### CLOCK_MONOTONIC
 Mesure le temps écoulé depuis un point arbitraire dans le passé, qui ne change pas après son initialisation. Cette horloge n'est pas affectée par les modifications de l'heure système, ce qui la rend idéale pour mesurer des durées précises sans se soucier des ajustements d'heure.
 
-### CLOCK_PROCESS_CPUTIME_ID 
+#### CLOCK_PROCESS_CPUTIME_ID 
 Mesure le temps CPU consommé par tous les threads d'un processus. Ce temps inclut le temps passé en mode utilisateur et en mode noyau, ce qui est utile pour analyser la consommation de ressources d'un processus.
 
-### CLOCK_THREAD_CPUTIME_ID 
+#### CLOCK_THREAD_CPUTIME_ID 
 Mesure le temps CPU utilisé par un thread spécifique du processus, en incluant le temps en mode utilisateur et en mode noyau. Cela permet d'évaluer précisément l'utilisation des ressources par des threads individuels.
 
 On notera que la précision est de l'ordre de de la nano seconde pour toutes les clocks.
@@ -386,7 +386,11 @@ int main(int argc, char *argv[]) {
 }
 ```
 
----
+<br>
+
+----
+
+# 5 Différence entre signal_timer.c et signal_timer2.c
 
 Les différences principales entre les deux programmes sont centrées autour de trois axes majeurs : le type de timer utilisé, la gestion des signaux, et l'interface utilisateur pour la configuration du timer.
 
@@ -403,3 +407,9 @@ Les différences principales entre les deux programmes sont centrées autour de 
    - **signal_timer2.c** propose une interface utilisateur via la ligne de commande, acceptant le nombre de mesures et le temps entre elles comme arguments. Cela rend le programme largement configurable sans nécessiter de modifications du code, adapté à divers scénarios d'utilisation.
 
 En résumé, le Programme 2 est conçu pour être plus flexible et configurable, adapté à des mesures de temps en temps réel avec une gestion avancée des signaux. Le Programme 1 est plus simple, destiné à mesurer le temps CPU utilisé par le processus, avec une configuration et une gestion des signaux moins avancées.
+
+<br>
+
+----
+
+# 5 Mesures
