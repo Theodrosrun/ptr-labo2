@@ -413,3 +413,17 @@ En résumé, le Programme 2 est conçu pour être plus flexible et configurable,
 ----
 
 # 5 Mesures
+
+Maintenant que nous avons un programme implémentant un timer périodique, nous allons l’utiliser pour mesurer les capacités du système à générer des évènements périodiques.
+
+```bash
+./signal_timer2 1000 500 > t500.dat
+```
+Compilez le programme fourni sur votre machine de travail et utilisez-le de la manière suivante :
+
+```bash
+gcc -O2 summary1.c -o summary -lm
+./summary < t500.dat
+```
+
+### Commentez les résultats et répétez l’expérience avec un intervalle de 250us, 1ms et 10ms. A partir des résultats précédents, créez les histogrammes des fréquences des données récupérées. Vous êtes libre d’utiliser votre environment préféré (python, excel, octave, etc...).
