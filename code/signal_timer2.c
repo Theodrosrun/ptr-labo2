@@ -18,7 +18,7 @@ void handler_signal(int signum) {
 
     if (lastTime.tv_sec != 0 || lastTime.tv_nsec != 0) { // Skip the first signal
         long elapsed_nsec = (currentTime.tv_sec - lastTime.tv_sec) * 1000000000L + (currentTime.tv_nsec - lastTime.tv_nsec);
-        printf("Elapsed time: %ld ns\n", elapsed_nsec);
+        printf("%ld\n", elapsed_nsec);
     }
     lastTime = currentTime;
 
@@ -40,6 +40,7 @@ int main(int argc, char *argv[]) {
 
     nbMeasures = atoi(argv[1]);
     usec = atol(argv[2]);
+    
     if (nbMeasures <= 0 || usec <= 0) {
         fprintf(stderr, "Both the number of measures and the time (in us) must be > 0\n");
         return EXIT_FAILURE;
