@@ -473,3 +473,4 @@ Décrivez et commentez les résultats obtenus :
 ### En le lançant en même temps que vous recevez un ping depuis une autre machine (demandez de l’aide à un autre groupe)
 
 Décrivez et commentez les résultats obtenus :
+
