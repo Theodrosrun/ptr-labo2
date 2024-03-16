@@ -468,6 +468,21 @@ Et utilisez-le de la manière suivante :
 
 ### Commentez les résultats et répétez l’expérience avec un intervalle de 250us, 1ms et 10ms. A partir des résultats précédents, créez les histogrammes des fréquences des données récupérées. Vous êtes libre d’utiliser votre environment préféré (python, excel, octave, etc...).
 
+250 us :
+
+![250](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t250.png)
+
+500 us :
+
+![500](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t500.png)
+
+1 ms :
+
+![1](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1.png)
+
+10 ms :
+
+![10](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t0.png)
 
 <br>
 
