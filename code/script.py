@@ -1,18 +1,14 @@
+import sys
 import matplotlib.pyplot as plt
 import numpy as np
-import sys
+import os
 
-def generer_histogramme(fichier_donnees, nom_fichier_sortie):
-    # Chargement des données depuis le fichier
-    try:
-        with open(fichier_donnees, 'r') as file:
-            donnees = file.read().splitlines()
-        donnees = [int(d) for d in donnees if d.isdigit()]
-    except Exception as e:
-        print(f"Erreur lors de la lecture du fichier {fichier_donnees}: {e}")
-        sys.exit(1)
+def generate_histogram(data_path, output_name):
+    # Lecture des données depuis le fichier
+    with open(data_path, 'r') as file:
+        donnees = [int(line.strip()) for line in file if line.strip()]
 
-    # Conversion de la liste en un array numpy pour un traitement plus efficace
+    # Conversion des données en array numpy
     data_array = np.array(donnees)
 
     # Création de l'histogramme
@@ -22,18 +18,26 @@ def generer_histogramme(fichier_donnees, nom_fichier_sortie):
     plt.xlabel('Valeur des Données')
     plt.ylabel('Fréquence')
 
-    # Sauvegarde de l'histogramme dans un fichier
-    plt.savefig(nom_fichier_sortie)
-    print(f"L'histogramme a été sauvegardé sous {nom_fichier_sortie}")
+    # Vérification de l'existence du dossier 'doc' au niveau supérieur et création si nécessaire
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'doc')
+    os.makedirs(output_dir, exist_ok=True)
 
-# Utilisation du script
+    # Construction du chemin complet de l'image de sortie
+    output_path = os.path.join(output_dir, output_name)
+
+    # Sauvegarde de l'histogramme dans le fichier de sortie
+    plt.savefig(output_path)
+    plt.close()
+
+    print(f"L'image a été sauvegardée sous : {output_path}")
+
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python script.py <chemin_fichier_donnees.dat> <nom_fichier_sortie.png>")
         sys.exit(1)
 
-    fichier_donnees = sys.argv[1]
-    nom_fichier_sortie = sys.argv[2]
+    data_path = sys.argv[1]
+    output_name = sys.argv[2]
 
-    generer_histogramme(fichier_donnees, nom_fichier_sortie)
+    generate_histogram(data_path, output_name)
 
