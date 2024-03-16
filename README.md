@@ -389,7 +389,7 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
 }
 ```
-### Etudiez le code, Pouvez-vous expliquer comment il fonctionne ? (pour quitter utilisez CTRL+C, ou envoyez un signal au processus avec la commande kill)
+### Etudiez le code, Pouvez-vous expliquer comment il fonctionne ?
 
 1. **Configuration du Timer** : Le programme configure un timer pour expirer après un intervalle de temps défini par l'utilisateur (en microsecondes), converti en nanosecondes pour la précision. Cet intervalle est à la fois initial (avec `it_value`) et périodique (avec `it_interval`), ce qui signifie que le timer expirera et émettra le signal associé à cet intervalle de manière répétitive.
 
