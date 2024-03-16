@@ -427,7 +427,7 @@ Maintenant que nous avons un programme implémentant un timer périodique, nous 
 Récupérer vos fichiers localement avec secure copy :
 
 ```bash
-scp root@192.168.0.2:/root/t500.dat
+scp root@192.168.0.2:/root/t500.dat .
 ```
 Compilez le programme fourni sur votre machine de travail :
 
