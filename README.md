@@ -478,11 +478,11 @@ Et utilisez-le de la manière suivante :
 
 1000 us :
 
-![1](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000.png)
+![1000](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000.png)
 
 10000 us :
 
-![10](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t10000.png)
+![10000](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t10000.png)
 
 <br>
 
