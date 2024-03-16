@@ -288,13 +288,17 @@ int main() {
 
 ### Etudiez le code, Pouvez-vous expliquer comment il fonctionne ? (pour quitter utilisez CTRL+C, ou envoyez un signal au processus avec la commande kill)
 
-Ce programme en C utilise un timer virtuel et les signaux pour exécuter périodiquement une fonction (`timer_handler`) qui compte le nombre de fois que le timer expire. 
+1. **Configuration du Timer :** Le programme configure un timer virtuel (`ITIMER_VIRTUAL`) qui est déclenché pour expirer après 250 millisecondes, et ensuite, il est configuré pour expirer à nouveau toutes les 250 millisecondes de manière répétitive. Ce comportement est établi par les champs `it_value` pour la première expiration et `it_interval` pour les expirations périodiques.
 
-En initialisant la structure `sigaction` à zéro et en définissant `sa.sa_handler` pour pointer vers `timer_handler`, il configure cette dernière pour gérer les signaux `SIGVTALRM` générés par l'expiration du timer. 
+2. **Association d'un Signal :** À chaque expiration du timer, le signal `SIGVTALRM` est émis. Ce signal est spécifiquement conçu pour être utilisé avec des timers virtuels et permet au programme de réagir à ces expirations de timer.
 
-Le timer est configuré avec `setitimer` pour expirer toutes les 250 millisecondes, à la fois initialement et pour les expirations suivantes, en utilisant `ITIMER_VIRTUAL` qui ne décompte que lorsque le processus s'exécute en mode utilisateur. Lorsque le timer expire, le signal `SIGVTALRM` est émis et `timer_handler` est appelé, incrémentant et affichant le compteur.
+3. **Gestion du Signal :** Le programme définit une fonction de gestion de signal (`timer_handler`) en utilisant `sigaction` pour intercepter et gérer `SIGVTALRM`. Cette fonction est exécutée automatiquement à chaque fois que le signal est reçu, c'est-à-dire à chaque expiration du timer.
 
-`SIGVTALRM` est un signal Unix/Linux émis lorsqu'un timer virtuel spécifique à un processus, configuré avec `setitimer()` pour utiliser `ITIMER_VIRTUAL`, arrive à expiration. Ce timer mesure uniquement le temps CPU consommé en mode utilisateur par le processus, permettant ainsi de programmer des actions à exécuter à intervalles réguliers de temps d'exécution. L'utilisation de `SIGVTALRM` est particulièrement utile pour le profilage de performance ou pour gérer la consommation de ressources du processus de manière précise, puisque ce signal est envoyé automatiquement par le système d'exploitation uniquement quand le compteur du timer atteint zéro, indiquant ainsi que le temps alloué au processus est écoulé.
+4. **Action du Gestionnaire de Signal :** Le gestionnaire de signal (`timer_handler`) incrémente un compteur à chaque fois qu'il est appelé, indiquant combien de fois le timer a expiré. Il imprime ensuite cette information, permettant de suivre le nombre d'expirations et donc la durée écoulée depuis le début du programme, à travers le nombre d'intervalles de 250 millisecondes comptés.
+
+5. **Répétition :** Le timer continue d'expirer à intervalles réguliers (toutes les 250 millisecondes), et le programme reste en exécution indéfiniment dans une boucle infinie (`while (1);`), réagissant à chaque expiration par l'incrémentation et l'affichage du compteur.
+
+Ce programme montre une utilisation des timers et des signaux pour exécuter des actions à intervalles réguliers, ici pour compter et afficher le nombre d'expirations du timer. Il démontre comment des mécanismes intégrés aux systèmes d'exploitation basés sur Unix/Linux peuvent être utilisés pour gérer le temps et les événements périodiques de manière précise et efficace.
 
 <br>
 
@@ -385,6 +389,19 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
 }
 ```
+### Etudiez le code, Pouvez-vous expliquer comment il fonctionne ? (pour quitter utilisez CTRL+C, ou envoyez un signal au processus avec la commande kill)
+
+1. **Configuration du Timer** : Le programme configure un timer pour expirer après un intervalle de temps défini par l'utilisateur (en microsecondes), converti en nanosecondes pour la précision. Cet intervalle est à la fois initial (avec `it_value`) et périodique (avec `it_interval`), ce qui signifie que le timer expirera et émettra le signal associé à cet intervalle de manière répétitive.
+
+2. **Association d'un Signal** : Le signal associé à l'expiration du timer est `SIGRTMIN`, un signal temps réel utilisé pour des applications nécessitant une granularité fine et un traitement prioritaire des signaux. Le programme utilise `sigevent` pour lier l'événement d'expiration du timer à l'émission de ce signal.
+
+3. **Gestion du Signal** : Le programme définit un gestionnaire pour le signal `SIGRTMIN` (`handler_signal`). Ce gestionnaire est appelé automatiquement à chaque fois que le signal est émis, c'est-à-dire à chaque expiration du timer.
+
+4. **Action du Gestionnaire de Signal** : Dans le gestionnaire de signal, le programme calcule le temps écoulé depuis la dernière expiration signalée en utilisant `clock_gettime` pour obtenir le temps actuel et le comparer au temps enregistré lors de la dernière expiration. Il affiche ensuite ce temps écoulé et décrémente un compteur de mesures, permettant au programme de suivre le nombre de signaux (et donc d'expirations du timer) traités.
+
+5. **Répétition et Terminaison** : Le timer est configuré pour se répéter jusqu'à ce que le nombre spécifié de mesures soit atteint. Une fois ce nombre atteint, le gestionnaire de signal termine le programme avec `exit(EXIT_SUCCESS)`, ce qui est une illustration de la flexibilité offerte par ce mécanisme pour exécuter des actions spécifiques à intervalles réguliers ou après un certain temps.
+
+Le programme en question utilise un timer pour mesurer des intervalles de temps précis, et à chaque expiration du timer, un signal est émis pour lequel un gestionnaire de signal spécifique (`handler_signal`) est défini.
 
 <br>
 
