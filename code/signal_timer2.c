@@ -10,16 +10,21 @@ int nbMeasures;
 struct timespec lastTime;
 
 void handler_signal(int signum) {
+    // Get the current time.
     struct timespec currentTime;
     if (clock_gettime(CLOCK_REALTIME, &currentTime) != 0) {
         perror("clock_gettime failed");
         exit(EXIT_FAILURE);
     }
 
-    if (lastTime.tv_sec != 0 || lastTime.tv_nsec != 0) { // Skip the first signal
+    // If this is not the first signal, calculate and display the elapsed time.
+    if (lastTime.tv_sec != 0 || lastTime.tv_nsec != 0) {
+        // Calculate the elapsed time in nanoseconds.
         long elapsed_nsec = (currentTime.tv_sec - lastTime.tv_sec) * 1000000000L + (currentTime.tv_nsec - lastTime.tv_nsec);
         printf("%ld\n", elapsed_nsec);
     }
+
+     // Update the time of the last measurement.
     lastTime = currentTime;
 
     if (--nbMeasures <= 0) {
@@ -40,7 +45,7 @@ int main(int argc, char *argv[]) {
 
     nbMeasures = atoi(argv[1]);
     usec = atol(argv[2]);
-    
+
     if (nbMeasures <= 0 || usec <= 0) {
         fprintf(stderr, "Both the number of measures and the time (in us) must be > 0\n");
         return EXIT_FAILURE;
