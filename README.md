@@ -409,15 +409,27 @@ Le programme en question utilise un timer pour mesurer des intervalles de temps 
 
 # 5 Différence entre signal_timer.c et signal_timer2.c
 
-Les différences principales entre les deux programmes sont centrées autour de trois axes majeurs : le type de timer utilisé, la gestion des signaux, et l'interface utilisateur pour la configuration du timer.
+### `signal_timer.c`
 
-1. **Type de Timer :**
-   - **signal_timer.c** utilise `ITIMER_VIRTUAL`, qui ne compte que le temps CPU consommé par le processus en mode utilisateur. Cela est spécifiquement utile pour mesurer la performance du processus en termes de temps CPU.
-   - **signal_timer2.c** utilise `CLOCK_REALTIME` à travers l'API POSIX `timer_create()`, ce qui permet de mesurer le temps en temps réel, indépendamment de l'utilisation du CPU par le processus. Ce timer est plus versatile pour des applications nécessitant la mesure du temps réel, comme des temporisateurs ou des horloges.
+- Utilise `setitimer` et `ITIMER_VIRTUAL` pour créer un timer virtuel qui décompte uniquement lorsque le processus est en exécution.
+- Génère le signal `SIGVTALRM` à chaque expiration du timer.
+- Le gestionnaire de signal (`timer_handler`) compte simplement le nombre d'expirations du timer et imprime ce compteur.
+- Ce programme est conçu pour fonctionner en continu jusqu'à une intervention externe (par exemple, l'utilisateur arrête le programme avec CTRL+C ou envoie un signal avec `kill`).
 
-2. **Gestion des Signaux :**
-   - **signal_timer.c** utilise `sigaction()` pour configurer le gestionnaire de signal `SIGVTALRM`, permettant une certaine flexibilité dans la gestion des signaux, comme la prévention de l'interruption de certaines fonctions systèmes lors de la réception du signal.
-   - **signal_timer2.c** emploie `signal()` avec `SIGRTMIN`, un signal en temps réel, offrant des capacités avancées telles que la queue de signaux et la priorisation, ce qui peut être essentiel pour les applications nécessitant une gestion précise des événements en temps réel.
+### `signal_timer2.c`
+
+- Utilise `timer_create` et `CLOCK_REALTIME` pour créer un timer basé sur le temps réel, qui décompte indépendamment de l'exécution du processus.
+- Génère le signal `SIGRTMIN` (un signal temps réel) à chaque expiration du timer.
+- Le gestionnaire de signal (`handler_signal`) calcule le temps écoulé entre les occurrences successives du signal et imprime ce temps. Il gère également un nombre déterminé de mesures avant de terminer le programme proprement.
+- Ce programme prend en entrée le nombre de mesures à faire et le temps en microsecondes entre les expirations du timer, offrant ainsi une fonctionnalité plus spécifique basée sur les entrées de l'utilisateur.
+
+### Différences Clés
+
+1. **Méthode de Création du Timer** : `signal_timer.c` utilise un timer virtuel qui compte seulement lorsque le processus est actif, tandis que `signal_timer2.c` utilise un timer temps réel qui compte de manière continue.
+
+2. **Signal Utilisé** : Les deux programmes utilisent différents types de signaux (`SIGVTALRM` pour le premier et `SIGRTMIN` pour le second), ce qui illustre la flexibilité dans le choix des signaux pour des besoins spécifiques.
+
+3. **Comportement du Gestionnaire de Signal** : Dans `signal_timer.c`, le gestionnaire de signal se contente de compter les expirations. Dans `signal_timer2.c`, il calcule et affiche le temps écoulé entre les signaux, et le programme se termine après un nombre spécifié d'occurrences.
 
 <br>
 
