@@ -402,12 +402,6 @@ Les différences principales entre les deux programmes sont centrées autour de 
    - **signal_timer.c** utilise `sigaction()` pour configurer le gestionnaire de signal `SIGVTALRM`, permettant une certaine flexibilité dans la gestion des signaux, comme la prévention de l'interruption de certaines fonctions systèmes lors de la réception du signal.
    - **signal_timer2.c** emploie `signal()` avec `SIGRTMIN`, un signal en temps réel, offrant des capacités avancées telles que la queue de signaux et la priorisation, ce qui peut être essentiel pour les applications nécessitant une gestion précise des événements en temps réel.
 
-3. **Interface utilisateur et Flexibilité :**
-   - **signal_timer.c** a un comportement fixe, défini par le code, avec un intervalle de timer codé en dur, ce qui le rend moins flexible pour des utilisations variées sans modification du code.
-   - **signal_timer2.c** propose une interface utilisateur via la ligne de commande, acceptant le nombre de mesures et le temps entre elles comme arguments. Cela rend le programme largement configurable sans nécessiter de modifications du code, adapté à divers scénarios d'utilisation.
-
-En résumé, le Programme 2 est conçu pour être plus flexible et configurable, adapté à des mesures de temps en temps réel avec une gestion avancée des signaux. Le Programme 1 est plus simple, destiné à mesurer le temps CPU utilisé par le processus, avec une configuration et une gestion des signaux moins avancées.
-
 <br>
 
 ----
