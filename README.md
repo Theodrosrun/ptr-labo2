@@ -476,13 +476,13 @@ Et utilisez-le de la manière suivante :
 
 ![500](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t500.png)
 
-1 ms :
+1000 us :
 
-![1](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1.png)
+![1](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000.png)
 
-10 ms :
+10000 us :
 
-![10](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t10.png)
+![10](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t10000.png)
 
 <br>
 
