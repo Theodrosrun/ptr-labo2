@@ -406,7 +406,7 @@ Les différences principales entre les deux programmes sont centrées autour de 
 
 ----
 
-# 5 Mesures
+# 6 Mesures
 
 Maintenant que nous avons un programme implémentant un timer périodique, nous allons l’utiliser pour mesurer les capacités du système à générer des évènements périodiques.
 
