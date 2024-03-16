@@ -391,15 +391,15 @@ int main(int argc, char *argv[]) {
 Les différences principales entre les deux programmes sont centrées autour de trois axes majeurs : le type de timer utilisé, la gestion des signaux, et l'interface utilisateur pour la configuration du timer.
 
 1. **Type de Timer :**
-   - **Programme 1** utilise `ITIMER_VIRTUAL`, qui ne compte que le temps CPU consommé par le processus en mode utilisateur. Cela est spécifiquement utile pour mesurer la performance du processus en termes de temps CPU.
-   - **Programme 2** utilise `CLOCK_REALTIME` à travers l'API POSIX `timer_create()`, ce qui permet de mesurer le temps en temps réel, indépendamment de l'utilisation du CPU par le processus. Ce timer est plus versatile pour des applications nécessitant la mesure du temps réel, comme des temporisateurs ou des horloges.
+   - **signal_timer.c** utilise `ITIMER_VIRTUAL`, qui ne compte que le temps CPU consommé par le processus en mode utilisateur. Cela est spécifiquement utile pour mesurer la performance du processus en termes de temps CPU.
+   - **signal_timer2.c** utilise `CLOCK_REALTIME` à travers l'API POSIX `timer_create()`, ce qui permet de mesurer le temps en temps réel, indépendamment de l'utilisation du CPU par le processus. Ce timer est plus versatile pour des applications nécessitant la mesure du temps réel, comme des temporisateurs ou des horloges.
 
 2. **Gestion des Signaux :**
-   - **Programme 1** utilise `sigaction()` pour configurer le gestionnaire de signal `SIGVTALRM`, permettant une certaine flexibilité dans la gestion des signaux, comme la prévention de l'interruption de certaines fonctions systèmes lors de la réception du signal.
-   - **Programme 2** emploie `signal()` avec `SIGRTMIN`, un signal en temps réel, offrant des capacités avancées telles que la queue de signaux et la priorisation, ce qui peut être essentiel pour les applications nécessitant une gestion précise des événements en temps réel.
+   - **signal_timer.c** utilise `sigaction()` pour configurer le gestionnaire de signal `SIGVTALRM`, permettant une certaine flexibilité dans la gestion des signaux, comme la prévention de l'interruption de certaines fonctions systèmes lors de la réception du signal.
+   - **signal_timer2.c** emploie `signal()` avec `SIGRTMIN`, un signal en temps réel, offrant des capacités avancées telles que la queue de signaux et la priorisation, ce qui peut être essentiel pour les applications nécessitant une gestion précise des événements en temps réel.
 
 3. **Interface utilisateur et Flexibilité :**
-   - **Programme 1** a un comportement fixe, défini par le code, avec un intervalle de timer codé en dur, ce qui le rend moins flexible pour des utilisations variées sans modification du code.
-   - **Programme 2** propose une interface utilisateur via la ligne de commande, acceptant le nombre de mesures et le temps entre elles comme arguments. Cela rend le programme largement configurable sans nécessiter de modifications du code, adapté à divers scénarios d'utilisation.
+   - **signal_timer.c** a un comportement fixe, défini par le code, avec un intervalle de timer codé en dur, ce qui le rend moins flexible pour des utilisations variées sans modification du code.
+   - **signal_timer2.c** propose une interface utilisateur via la ligne de commande, acceptant le nombre de mesures et le temps entre elles comme arguments. Cela rend le programme largement configurable sans nécessiter de modifications du code, adapté à divers scénarios d'utilisation.
 
 En résumé, le Programme 2 est conçu pour être plus flexible et configurable, adapté à des mesures de temps en temps réel avec une gestion avancée des signaux. Le Programme 1 est plus simple, destiné à mesurer le temps CPU utilisé par le processus, avec une configuration et une gestion des signaux moins avancées.
