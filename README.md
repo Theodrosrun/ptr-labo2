@@ -482,7 +482,7 @@ Et utilisez-le de la manière suivante :
 
 10 ms :
 
-![10](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t0.png)
+![10](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t10.png)
 
 <br>
 
