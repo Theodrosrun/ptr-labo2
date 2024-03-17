@@ -588,7 +588,7 @@ taskset -pc 0 $$
 
 #### Décrivez et commentez les résultats obtenus :
 
-Aucune valeur n'as pu
+Dans cette situation, il apparaît que le fichier contenant les résultats était vide. Cette absence de données suggère que le système n'a pas réussi à respecter les exigences de minuterie, probablement à cause d'une charge CPU élevée.
 
 <br>
 
