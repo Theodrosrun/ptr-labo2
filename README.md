@@ -572,6 +572,21 @@ On remarque que la durée de 1ms donc 1000 us maintient un certain nombre d'inte
 
 <br>
 
+```bash
+taskset -pc 0 $$
+```
+
+```bash
+./signal_timer2 1000 250 & ./signal_timer2 1000 500 ./signal_timer2 1000 1000 > t1000with2signaltimer2.dat
+```
+
+![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000with2signaltimer2.png)
+
+#### Décrivez et commentez les résultats obtenus :
+
+
+<br>
+
 ---
 
 ### En le lançant en même temps que vous recevez un ping depuis une autre machine (demandez de l’aide à un autre groupe)
