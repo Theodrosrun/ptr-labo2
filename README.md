@@ -556,6 +556,16 @@ taskset -pc 0 $$
 
 ### En le lançant et en effectuant d’autres opérations avec le système en parallèle
 
+```bash
+taskset -pc 0 $$
+```
+
+```bash
+./cpu_loop & ./cpu_loop & ./cpu_loop & ./cpu_loop & ./cpu_loop & ./signal_timer2 1000 1000 > t1000with5cpuloop.dat
+```
+
+![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000with5cpuloop.png)
+
 #### Décrivez et commentez les résultats obtenus :
 
 <br>
