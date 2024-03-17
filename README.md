@@ -548,6 +548,8 @@ taskset -pc 0 $$
 
 #### Décrivez et commentez les résultats obtenus :
 
+
+
 <br>
 
 ---
