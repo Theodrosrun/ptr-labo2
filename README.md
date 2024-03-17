@@ -471,19 +471,19 @@ Et utilisez-le de la manière suivante :
 
 250 us :
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t250.png)
+![](/doc/t250.png)
 
 500 us :
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t500.png)
+![](/doc/t500.png)
 
 1 ms :
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000.png)
+![](/doc/t1000.png)
 
 10 ms :
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t10000.png)
+![](/doc/t10000.png)
 
 #### Décrivez et commentez les résultats obtenus :
 
@@ -507,7 +507,7 @@ taskset -pc 0 $$
 nice -n 20 ./signal_timer2 1000 1000 > t1000niceminus20.dat & ./signal_timer2 1000 1000
 ```
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000niceminus20.png)
+![](/doc/t1000niceminus20.png)
 
 #### Décrivez et commentez les résultats obtenus :
 
@@ -527,7 +527,7 @@ taskset -pc 0 $$
 nice -n 5 ./signal_timer2 1000 1000 > t1000nice5.dat & ./signal_timer2 1000 1000
 ```
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000nice5.png)
+![](/doc/t1000nice5.png)
 
 #### Décrivez et commentez les résultats obtenus :
 
@@ -547,7 +547,7 @@ taskset -pc 0 $$
 ./cpu_loop & ./signal_timer2 1000 1000 > t1000withcpuloop.dat
 ```
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000withcpuloop.png)
+![](/doc/t1000withcpuloop.png)
 
 #### Décrivez et commentez les résultats obtenus :
 
@@ -567,7 +567,7 @@ taskset -pc 0 $$
 ./cpu_loop & ./cpu_loop & ./cpu_loop & ./cpu_loop & ./cpu_loop & ./signal_timer2 1000 1000 > t1000with5cpuloop.dat
 ```
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000with5cpuloop.png)
+![](/doc/t1000with5cpuloop.png)
 
 #### Décrivez et commentez les résultats obtenus :
 
@@ -585,7 +585,7 @@ taskset -pc 0 $$
 ./signal_timer2 1000 250 & ./signal_timer2 1000 500 ./signal_timer2 1000 1000 > t1000with2signaltimer2.dat
 ```
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000with2signaltimer2.png)
+![](/doc/t1000with2signaltimer2.png)
 
 #### Décrivez et commentez les résultats obtenus :
 
