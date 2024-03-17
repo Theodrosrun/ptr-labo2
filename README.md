@@ -532,7 +532,17 @@ Décrivez et commentez les résultats obtenus :
 
 ---
 
-### En le lançant avec ./cpu_loop & ./timer 1000 1000
+### En le lançant avec ./cpu_loop & ./signal_timer2 1000 1000
+
+```bash
+taskset -pc 0 $$
+```
+
+```bash
+./cpu_loop & ./signal_timer2 1000 1000 > t1000withcpuloop.dat
+```
+
+![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000withcpuloop.png)
 
 Décrivez et commentez les résultats obtenus :
 
