@@ -1,7 +1,7 @@
 CC=arm-linux-gnueabihf-gcc
 CFLAGS=-I. -O2 -lrt
 objects = gettimeofday gettimeofday2 signal_timer signal_timer2
-TARGET = gettimeofday
+TARGET = signal_timer2
 USER = root
 HOSTNAME = 192.168.0.2
 
