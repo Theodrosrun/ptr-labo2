@@ -493,6 +493,10 @@ Et utilisez-le de la manière suivante :
 ### En le lançant avec différentes valeurs de nice
 
 ```bash
+taskset -pc 0 $$
+```
+
+```bash
 nice -n 5 ./signal_timer2 1000 250 > t250nice5.dat & ./signal_timer2 1000 250
 ```
 
