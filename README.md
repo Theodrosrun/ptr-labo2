@@ -508,8 +508,6 @@ Décrivez et commentez les résultats obtenus :
 
 <br>
 
-<br>
-
 #### 1 ms avec nice à 5 :
 
 ```bash
