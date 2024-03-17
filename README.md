@@ -492,17 +492,17 @@ Et utilisez-le de la manière suivante :
 
 ### En le lançant avec différentes valeurs de nice (du plus gentil au moins gentil)
 
-#### 250 us avec nice à -20 :
+#### 1 ms avec nice à -20 :
 
 ```bash
 taskset -pc 0 $$
 ```
 
 ```bash
-nice -n 20 ./signal_timer2 1000 250 > t250niceminus20.dat & ./signal_timer2 1000 250
+nice -n 20 ./signal_timer2 1000 1000 > t1000niceminus20.dat & ./signal_timer2 1000 1000
 ```
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t250niceminus20.png)
+![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000niceminus20.png)
 
 Décrivez et commentez les résultats obtenus :
 
@@ -512,17 +512,17 @@ Décrivez et commentez les résultats obtenus :
 
 <br>
 
-#### 250 us avec nice à 5 :
+#### 1 ms avec nice à 5 :
 
 ```bash
 taskset -pc 0 $$
 ```
 
 ```bash
-nice -n 5 ./signal_timer2 1000 250 > t250nice5.dat & ./signal_timer2 1000 250
+nice -n 5 ./signal_timer2 1000 1000 > t1000nice5.dat & ./signal_timer2 1000 1000
 ```
 
-![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t250nice5.png)
+![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000nice5.png)
 
 Décrivez et commentez les résultats obtenus :
 
