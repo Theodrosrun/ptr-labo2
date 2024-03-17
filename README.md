@@ -1,10 +1,8 @@
-# Laboratoire 2, Theodros Mulugeta
+# Laboratoire 2 | Theodros Mulugeta | 17.03.2024
 
 <br>
 
-----
-
-# Objectif
+### Objectif
 
 Permettre d’expérimenter l’interface des timers POSIX et les limites de Linux
 en tant que système temps réel.
