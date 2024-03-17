@@ -548,7 +548,7 @@ taskset -pc 0 $$
 
 #### Décrivez et commentez les résultats obtenus :
 
-
+L'histogramme révèle un pic marqué à 1 ms et très peu de valeurs hors range. 
 
 <br>
 
@@ -567,6 +567,8 @@ taskset -pc 0 $$
 ![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000with5cpuloop.png)
 
 #### Décrivez et commentez les résultats obtenus :
+
+On remarque que la durée de 1ms donc 1000 us maintient un certain nombre d'intervalles avec une période correcte mais des valeurs inatendues comme 10 ms sont présentes.
 
 <br>
 
