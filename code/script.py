@@ -14,7 +14,7 @@ def generate_histogram(data_path, output_name):
     # Création de l'histogramme
     plt.figure(figsize=(14, 7))
     plt.hist(data_array, bins=50, color='blue', alpha=0.7)
-    plt.xlabel('Time (us)')
+    plt.xlabel('Time (ns)')
     plt.ylabel('Fréquence')
 
     # Vérification de l'existence du dossier 'doc' au niveau supérieur et création si nécessaire
