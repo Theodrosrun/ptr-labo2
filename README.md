@@ -492,6 +492,14 @@ Et utilisez-le de la manière suivante :
 
 ### En le lançant avec différentes valeurs de nice
 
+```bash
+nice -n 5 ./signal_timer2 1000 250 > t250nice5.dat & ./signal_timer2 1000 250
+```
+
+250 us avec nice à 5 :
+
+![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t250nice5.png)
+
 Décrivez et commentez les résultats obtenus :
 
 
