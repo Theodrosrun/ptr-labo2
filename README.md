@@ -506,8 +506,6 @@ nice -n 20 ./signal_timer2 1000 1000 > t1000niceminus20.dat & ./signal_timer2 10
 
 Décrivez et commentez les résultats obtenus :
 
-...
-
 <br>
 
 <br>
@@ -525,8 +523,6 @@ nice -n 5 ./signal_timer2 1000 1000 > t1000nice5.dat & ./signal_timer2 1000 1000
 ![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000nice5.png)
 
 Décrivez et commentez les résultats obtenus :
-
-...
 
 <br>
 
@@ -546,8 +542,6 @@ taskset -pc 0 $$
 
 Décrivez et commentez les résultats obtenus :
 
-...
-
 <br>
 
 ---
@@ -555,8 +549,6 @@ Décrivez et commentez les résultats obtenus :
 ### En le lançant et en effectuant d’autres opérations avec le système en parallèle
 
 Décrivez et commentez les résultats obtenus :
-
-...
 
 <br>
 
