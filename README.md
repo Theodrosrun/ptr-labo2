@@ -1,10 +1,7 @@
 # Laboratoire 2 | Theodros Mulugeta | 17.03.2024
 
-<br>
-
-### Objectif
-
-Permettre d’expérimenter l’interface des timers POSIX et les limites de Linux
+L'objectif est de se familiariser avec les processus et les threads sous
+Linux. Ce laboratoire va permettre d’expérimenter l’interface des timers POSIX et les limites de Linux
 en tant que système temps réel.
 
 <br>
