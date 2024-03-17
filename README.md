@@ -484,6 +484,8 @@ Et utilisez-le de la manière suivante :
 
 ![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t10000.png)
 
+Les histogrammes révèlent une cohérence notable dans la précision des mesures effectuées. Malgré la variation des intervalles, chaque série de données semble respecter les intervalles prévus, indiquant une fiabilité élevée dans le processus de mesure.
+
 <br>
 
 ----
@@ -506,6 +508,8 @@ nice -n 20 ./signal_timer2 1000 1000 > t1000niceminus20.dat & ./signal_timer2 10
 
 Décrivez et commentez les résultats obtenus :
 
+L'histogramme montre une concentration significative des mesures autour d'une valeur centrale, néamoins des valeurs incohérentes proches de 0 sont présentes. On remarque également des valeurs autour de 2 et quelques unes autour de 3.
+
 <br>
 
 #### 1 ms avec nice à 5 :
@@ -521,6 +525,8 @@ nice -n 5 ./signal_timer2 1000 1000 > t1000nice5.dat & ./signal_timer2 1000 1000
 ![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000nice5.png)
 
 Décrivez et commentez les résultats obtenus :
+
+L'histogramme révèle un pic marqué à 1 ms, ce qui est normalement attendu. Cependant, des valeurs inhabituellement basses proches de zéro apparaissent, ce qui n'est pas typique. On note également des groupements moins denses autour des valeurs 2 et 3. Cela suggère que le timing a pu connaître des irrégularités.
 
 <br>
 
