@@ -534,7 +534,7 @@ L'histogramme révèle un pic marqué à 1 ms, ce qui est normalement attendu. C
 
 ---
 
-### En le lançant avec ./cpu_loop & ./signal_timer2 1000 1000
+### En le lançant avec cpu_loop en arrière plan : ./cpu_loop & ./signal_timer2 1000 1000
 
 ```bash
 taskset -pc 0 $$
