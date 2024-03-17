@@ -512,7 +512,7 @@ nice -n 20 ./signal_timer2 1000 1000 > t1000niceminus20.dat & ./signal_timer2 10
 
 L'histogramme montre une concentration significative des mesures autour d'une valeur centrale, néamoins des valeurs incohérentes proches de 0 sont présentes. On remarque également des valeurs autour de 2 et quelques unes autour de 3.
 
-<br>
+---
 
 #### 1 ms avec nice à 5 :
 
@@ -570,7 +570,7 @@ taskset -pc 0 $$
 
 On remarque que la durée de 1ms donc 1000 us maintient un certain nombre d'intervalles avec une période correcte mais des valeurs inatendues comme 10 ms sont présentes.
 
-<br>
+---
 
 ```bash
 taskset -pc 0 $$
@@ -583,6 +583,7 @@ taskset -pc 0 $$
 ![](https://github.com/Theodrosrun/ptr-labo2/blob/main/doc/t1000with2signaltimer2.png)
 
 #### Décrivez et commentez les résultats obtenus :
+
 
 
 <br>
